@@ -1,6 +1,11 @@
+using Congratulator.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+string connection = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<CongratulatorContext>(options => options.UseNpgsql(connection));
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
