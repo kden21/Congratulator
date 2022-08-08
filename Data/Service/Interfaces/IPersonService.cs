@@ -1,6 +1,15 @@
-﻿namespace Congratulator.Data.Service.Interfaces
+﻿using Congratulator.Data.Models;
+using Congratulator.Data.Models.Responses;
+
+namespace Congratulator.Data.Service.Interfaces
 {
     public interface IPersonService
     {
-    }
+		Task<BaseResponse<IEnumerable<Person>>> GetPersons();
+		Task<BaseResponse<Person>> GetPerson(int id);
+		Task<BaseResponse<bool>> CreatePerson(Person product);
+		Task<BaseResponse<bool>> DeletePerson(int id);
+		Task<BaseResponse<IEnumerable<Person>>> GetPersonByName(string name);
+		Task<BaseResponse<Person>> EditPerson(int id, Person model);
+	}
 }

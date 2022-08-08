@@ -1,38 +1,53 @@
 ﻿using Congratulator.Data.Interfaces;
 using Congratulator.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Congratulator.Data.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
-        public Task<bool> Create(Person entity)
+        public readonly CongratulatorContext _context;
+        public PersonRepository(CongratulatorContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public async Task<bool> Create(Person entity)
+        {
+            await _context.Persons.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<bool> Delete(Person entity)
+        public async Task<bool> Delete(Person entity)
         {
-            throw new NotImplementedException();
+            _context.Persons.Remove(entity);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<Person> Get(int id)
+        public async Task<Person> Get(int id)
         {
-            throw new NotImplementedException();
+            var person = await _context.Persons.FirstOrDefaultAsync(p => p.Id == id);
+            return person;
         }
 
-        public Task<Person> GetByName(string name)
+        public async Task<List<Person>> GetByName(string name)
         {
-            throw new NotImplementedException();
+            var persons = _context.Persons.Where(p=>p.Name.ToLower()==name.ToLower());
+            return await persons.ToListAsync();
         }
 
-        public Task<List<Person>> Select()
+        public async Task<List<Person>> Select()
         {
-            throw new NotImplementedException();
+            var persons = await _context.Persons.ToListAsync();
+            return persons;
         }
 
-        public Task<Person> Update(Person entity)
+        public async Task<Person> Update(Person entity)
         {
-            throw new NotImplementedException();
+            _context.Persons.Update(entity);
+            await _context.SaveChangesAsync();
+            return entity;
         }
     }
 }
