@@ -1,4 +1,5 @@
-﻿using Congratulator.Models;
+﻿using Congratulator.Data.Service.Interfaces;
+using Congratulator.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,21 @@ namespace Congratulator.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        public readonly IPersonService _personService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPersonService personService)
         {
             _logger = logger;
+            _personService = personService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+
+            var response = await _personService.GetPersonsByDate(DateTime.Now);
+            if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
+                return View(response.Data.ToList());
+            return RedirectToAction("Error");
         }
 
         public IActionResult Privacy()

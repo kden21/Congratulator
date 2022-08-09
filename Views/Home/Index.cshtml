@@ -1,8 +1,33 @@
-﻿@{
+﻿@using Congratulator.Data.Models
+@model List<Person>
+
+
+
+
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+ <div class="container-fluid" >
+     <div class="row">
+         
+         <div class="col-md-1 rounded-pill m-3 text-center box-shadow" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-controller="Person" asp-action="GetPersons">вчера</a></div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97">сегодня</div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97">завтра</div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97">11.08</div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97">12.08</div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97">13.08</div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97">14.08</div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97">15.08</div>
+     </div>
+     @if(Model.Count==0){
+	<h1 class="h1Text-index">В этот день дней рождений нет :(</h1>
+}
+else{
+	foreach(Person p in @Model)
+	{
+		<div>@p.Name @p.Surname @p.DateOfBirth</div>
+	}
+}
+ </div>

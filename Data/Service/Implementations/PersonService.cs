@@ -117,6 +117,32 @@ namespace Congratulator.Data.Service.Implementations
             }
         }
 
+        public async Task<BaseResponse<IEnumerable<Person>>> GetPersonsByDate(DateTime date)
+        {
+            var baseResponse = new BaseResponse<IEnumerable<Person>>();
+            try
+            {
+                var persons = await _personRepository.GetByDate(date);
+                if (persons == null)
+                {
+                    baseResponse.Description = "Persons not found";
+                    baseResponse.StatusCode = StatusCode.PersonNotFound;
+                    return baseResponse;
+                }
+                baseResponse.Data = persons;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<Person>>()
+                {
+                    Description = $"[GetPersonByDate] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
         public async Task<BaseResponse<IEnumerable<Person>>> GetPersonByName(string name)
         {
             var baseResponse = new BaseResponse<IEnumerable<Person>>();

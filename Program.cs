@@ -1,4 +1,8 @@
 using Congratulator.Data;
+using Congratulator.Data.Interfaces;
+using Congratulator.Data.Repositories;
+using Congratulator.Data.Service.Implementations;
+using Congratulator.Data.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<CongratulatorContext>(options => options.UseNpgsql(connection));
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddScoped<IPersonService, PersonService>();
 
 var app = builder.Build();
 

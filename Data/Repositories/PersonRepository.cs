@@ -31,6 +31,12 @@ namespace Congratulator.Data.Repositories
             return person;
         }
 
+        public async Task<List<Person>> GetByDate(DateTime date)
+        {
+            var persons = _context.Persons.Where(p => p.DateOfBirth.Month == date.Month).Where(p => p.DateOfBirth.Day == date.Day);
+            return await persons.ToListAsync();
+        }
+
         public async Task<List<Person>> GetByName(string name)
         {
             var persons = _context.Persons.Where(p=>p.Name.ToLower()==name.ToLower());

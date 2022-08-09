@@ -10,6 +10,7 @@ namespace Congratulator.Data.Service.Interfaces
 		Task<BaseResponse<bool>> CreatePerson(Person product);
 		Task<BaseResponse<bool>> DeletePerson(int id);
 		Task<BaseResponse<IEnumerable<Person>>> GetPersonByName(string name);
+		Task<BaseResponse<IEnumerable<Person>>> GetPersonsByDate(DateTime date);
 		Task<BaseResponse<Person>> EditPerson(int id, Person model);
 	}
 }
