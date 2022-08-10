@@ -2,44 +2,58 @@
 @model List<Person>
 
 
-    <div class="container-fluid">
-        <div class="row">
-         <div class="col-md-1 rounded-pill m-3 text-center box-shadow" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(-1).ToString()">вчера</a></div>
-         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.ToString()">сегодня</a></div>
-         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddMonths(1).ToString()">завтра</a></div>
-         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(2).ToString()">@DateTime.Now.AddDays(2).ToString("dd.MM")</a></div>
-         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(3).ToString()">@DateTime.Now.AddDays(3).ToString("dd.MM")</a></div>
-         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(4).ToString()">@DateTime.Now.AddDays(4).ToString("dd.MM")</a></div>
-         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(5).ToString()">@DateTime.Now.AddDays(5).ToString("dd.MM")</a></div>
-         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(6).ToString()">@DateTime.Now.AddDays(6).ToString("dd.MM")</a></div>
-     </div>
-     
-     <div class="row rounded-3" style="background-color:#695e97;box-shadow:0 1px 3px #5b4343;">
-        @if(Model.Count==0){
-            <h1>В этот день дней рождений нет :(</h1>
-        }
-     </div>
-else{
-	<div class="row">
-		@foreach(Person p in @Model)
-		{
-			<div class="col-md-3 m-4 rounded-3" style="padding:1vh; background-color:#695e97">
+    @if (Model.Count!=0)
+    {
+         <div class="row">
+          @foreach(Person p in @Model)
+	{
+             <div class="col-md-3 m-4 rounded-3" style="box-shadow:0 1px 3px #5b4343; padding:1vh; background-color:#695e97">
                 <div>
                      <img class="img-fluid rounded-3 rounded m-auto d-block" style="height:40vh; object-fit: contain" src="https://uchebnik.mos.ru/system_2/atomic_objects/files/008/982/781/original/yandex_image20210116-1487-tdf68h.jpg"/>
                 </div>
-                <div>@p.Name @p.Surname</div>
+                <div style="text-align:center"><h2 style="color:#ffffff">@p.Name @p.Surname</h2></div>
                 @if(@p.Age(DateTime.Now)==-1){
-                    <div>Человек еще не родился!</div>
+                    <div style="text-align:center"><p style="color:#ffffff">Человек еще не родился!</p> </div>
             }
             else
             {
-                <div>@p.DateOfBirth.ToString("M") Исполнится @p.Age(DateTime.Now)</div>
+                <div style="text-align:center"><p style="color:#ffffff">@p.DateOfBirth.ToString("M") исполнится @p.Age(DateTime.Now)</p> </div>
             }
-                <div>поздравить</div>
-             </div>
-		}
-	</div>
-}
+                    @if (((p.YearLastCongratulations<DateTime.Today.Year)||(p.YearLastCongratulations==null))&&(p.DateOfBirth.Month==DateTime.Today.Month)&&(p.DateOfBirth.Day==DateTime.Today.AddDays(-1).Day))
+                    {
+                        <div class="rounded-3" style="text-align:center; background-color:#ed6c6c">
+                            <p style="color:#695e97">Вы вчера не поздравили</p>
+                            </div>
+                    }
+                    else if (p.YearLastCongratulations == DateTime.Today.Year)
+                        {
+                            <div class="rounded-3" style="text-align:center; background-color:#ffffff">
+                            <p style="color:#695e97">Человек поздравлен</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="rounded-3" style="text-align:center; background-color:#86cc93">
+                            <a asp-controller="Person" asp-action="Congratulate" asp-route-contr="Home" asp-route-act="Index"
+                            asp-route-id="@p.Id" asp-route-year="@DateTime.Today.Year"><p style="color:#ffffff">Поздравить в этом году</p></a>
+                            </div>
+                        }
 
+                    
+                <div style="text-align:center">
+                    @if(p.YearLastCongratulations==null){
+                            <p style="color:#b1afaf">Вы не поздравляли ни разу</p>
+                        }
+                        else
+                        {
+                            <p style="color:#b1afaf">Вы поздравляли в @p.YearLastCongratulations году</p>
+                        }
+                    </div> 
+            </div>
+
+         
+	}
     </div>
+     }
 
+ </div>

@@ -10,3 +10,28 @@
     max-height: 50px;
     max-width: 50px;
 }
+.nav-home-table {
+    font-size:xx-large;
+    color: #ffffff;
+    font-weight: 600;
+}
+    .nav-home-table:hover {
+        border: 3px;
+        color: #d695f5;
+        background-color: rgb(179, 153, 231, 0.2);
+        border-radius:5px;
+    }
+    .nav-home-table:active{
+        
+    }
+.button-test {
+    font-size: large;
+    color: #291054;
+    font-weight: 600;
+}
+    .button-test:hover {
+        border: 3px;
+        color: #9d60c1;
+        background-color: rgb(179, 153, 231, 0.2);
+        /*box-shadow: 0 1px 1px #5b4343;*/
+    }

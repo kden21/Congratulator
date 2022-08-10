@@ -14,6 +14,15 @@ namespace Congratulator.Controllers
         }
 
         [HttpGet]
+        public async Task<ActionResult> Congratulate(string contr, string act,int id, Person model, int year)
+        {
+            var response = await _personService.Congratulate(id, year);
+            if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
+                return RedirectToAction(act, contr);
+            return RedirectToAction("Error");
+        }
+
+        [HttpGet]
         public async Task<ActionResult> GetPersons()
         {
             var response = await _personService.GetPersons();
@@ -49,5 +58,6 @@ namespace Congratulator.Controllers
                 return RedirectToAction("GetPersons");
             return RedirectToAction("Error");
         }
+
     }
 }

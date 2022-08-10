@@ -15,11 +15,11 @@
         <div class="row" >
             <div class="col-md-4 col-lg-3">
                 <img class="m-3" src="assets/emblema.png" alt="Здесь должна быть картинка" style="width:45vh">
-             <a asp-controller="Person" asp-action="GetPersons"><div><h2 style="">Все ДР</h2></div></a>
-            <ul>
-                <li><a asp-controller="Person" asp-action="GetPersons">Все ДР</a></li>
-                <li><a>Добавить</a></li>
-            </ul>
+       
+            <nav class="nav flex-column">
+  <a class="nav-home-table  nav-link" asp-controller="Person" asp-action="GetPersons">Все ДР</a>
+  <a class="nav-home-table  nav-link" asp-controller="Person" asp-action="GetPersons">Добавить</a>
+</nav>
          </div>
            
             <div class="col-md-8 col-lg-9 main-unit" style="background-color: #FFFFFF" >
@@ -41,6 +41,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/JavaScript.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

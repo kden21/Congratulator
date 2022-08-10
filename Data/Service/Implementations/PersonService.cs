@@ -14,6 +14,37 @@ namespace Congratulator.Data.Service.Implementations
             _personRepository = personRepository;
         }
 
+        public async Task<BaseResponse<Person>> Congratulate(int id, int year)
+        {
+            var baseResponse = new BaseResponse<Person>();
+            try
+            {
+                var person = await _personRepository.Get(id);
+                if (person == null)
+                {
+                    baseResponse.StatusCode = StatusCode.PersonNotFound;
+                    baseResponse.Description = "Person not found";
+                    return baseResponse;
+                }
+                //person.Name = model.Name;
+                //person.Surname = model.Surname;
+                //person.DateOfBirth = model.DateOfBirth;
+
+                person.YearLastCongratulations = year;
+                await _personRepository.Update(person);
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Person>()
+                {
+                    Description = $"[EditPerson] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
         public async Task<BaseResponse<bool>> CreatePerson(Person model)
         {
             var baseResponse = new BaseResponse<bool>();
@@ -78,6 +109,7 @@ namespace Congratulator.Data.Service.Implementations
                 person.Name = model.Name;
                 person.Surname = model.Surname;
                 person.DateOfBirth = model.DateOfBirth;
+                person.YearLastCongratulations = model.YearLastCongratulations;
                 await _personRepository.Update(person);
                 return baseResponse;
             }
