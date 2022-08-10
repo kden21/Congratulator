@@ -87,6 +87,8 @@ namespace Congratulator.Data.Service.Implementations
                     return baseResponse;
                 }
                 await _personRepository.Delete(person);
+                baseResponse.Description = "Пользователь успешно удален";
+                baseResponse.StatusCode = StatusCode.OK;
                 return baseResponse;
             }
             catch (Exception ex)
