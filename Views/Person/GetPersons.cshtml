@@ -2,14 +2,44 @@
 @model List<Person>
 
 
-
-@if(Model.Count==0){
-	<h1 class="h1Text-index">В этот день дней рождений нет :(</h1>
-}
+    <div class="container-fluid">
+        <div class="row">
+         <div class="col-md-1 rounded-pill m-3 text-center box-shadow" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(-1).ToString()">вчера</a></div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.ToString()">сегодня</a></div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddMonths(1).ToString()">завтра</a></div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(2).ToString()">@DateTime.Now.AddDays(2).ToString("dd.MM")</a></div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(3).ToString()">@DateTime.Now.AddDays(3).ToString("dd.MM")</a></div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(4).ToString()">@DateTime.Now.AddDays(4).ToString("dd.MM")</a></div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(5).ToString()">@DateTime.Now.AddDays(5).ToString("dd.MM")</a></div>
+         <div class="col-md-1 rounded-pill m-3 text-center" style="box-shadow:0 1px 3px #5b4343; color: #ffffff; background-color: #695e97"><a asp-action="Index" asp-route-date="@DateTime.Now.AddDays(6).ToString()">@DateTime.Now.AddDays(6).ToString("dd.MM")</a></div>
+     </div>
+     
+     <div class="row rounded-3" style="background-color:#695e97;box-shadow:0 1px 3px #5b4343;">
+        @if(Model.Count==0){
+            <h1>В этот день дней рождений нет :(</h1>
+        }
+     </div>
 else{
-	foreach(Person p in @Model)
-	{
-		<div>@p.Name @p.Surname @p.DateOfBirth</div>
-	}
+	<div class="row">
+		@foreach(Person p in @Model)
+		{
+			<div class="col-md-3 m-4 rounded-3" style="padding:1vh; background-color:#695e97">
+                <div>
+                     <img class="img-fluid rounded-3 rounded m-auto d-block" style="height:40vh; object-fit: contain" src="https://uchebnik.mos.ru/system_2/atomic_objects/files/008/982/781/original/yandex_image20210116-1487-tdf68h.jpg"/>
+                </div>
+                <div>@p.Name @p.Surname</div>
+                @if(@p.Age(DateTime.Now)==-1){
+                    <div>Человек еще не родился!</div>
+            }
+            else
+            {
+                <div>@p.DateOfBirth.ToString("M") Исполнится @p.Age(DateTime.Now)</div>
+            }
+                <div>поздравить</div>
+             </div>
+		}
+	</div>
 }
+
+    </div>
 

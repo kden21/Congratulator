@@ -1,8 +1,12 @@
 ﻿.main-unit {
     border-bottom-left-radius: 15px;
     border-top-left-radius: 15px;
-    margin-top: 1vh;
+    margin-top: 5vh;
     min-height: 90vh;
     box-shadow: 0 1px 5px #5b4343;
     padding:2vh;
+}
+.img-person {
+    max-height: 50px;
+    max-width: 50px;
 }

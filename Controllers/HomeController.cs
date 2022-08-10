@@ -16,10 +16,20 @@ namespace Congratulator.Controllers
             _personService = personService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string date)
         {
-
-            var response = await _personService.GetPersonsByDate(DateTime.Now);
+            DateTime dateTime;
+            try
+            {
+                dateTime = DateTime.Parse(date);
+            }
+            catch (Exception ex)
+            {      
+                dateTime = DateTime.Today;
+            }
+            
+            
+            var response = await _personService.GetPersonsByDate(dateTime);
             if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
                 return View(response.Data.ToList());
             return RedirectToAction("Error");
