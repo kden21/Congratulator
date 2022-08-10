@@ -2,6 +2,7 @@
 using Congratulator.Data.Models;
 using Congratulator.Data.Models.Enums;
 using Congratulator.Data.Models.Responses;
+using Congratulator.Data.Models.ViewModels;
 using Congratulator.Data.Service.Interfaces;
 
 namespace Congratulator.Data.Service.Implementations
@@ -45,7 +46,7 @@ namespace Congratulator.Data.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<bool>> CreatePerson(Person model)
+        public async Task<BaseResponse<bool>> CreatePerson(PersonViewModel model)
         {
             var baseResponse = new BaseResponse<bool>();
             try
@@ -54,9 +55,13 @@ namespace Congratulator.Data.Service.Implementations
                 {
                     Name = model.Name,
                     Surname = model.Surname,
-                    DateOfBirth = model.DateOfBirth
+                    DateOfBirth = model.DateOfBirth,
+                    //Id = null
+                    
                 };
                 await _personRepository.Create(person);
+                baseResponse.Description = "Пользователь успешно добавлен";
+                baseResponse.StatusCode = StatusCode.OK;
                 return baseResponse;
             }
             catch (Exception ex)

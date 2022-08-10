@@ -1,5 +1,6 @@
 ﻿using Congratulator.Data.Models;
 using Congratulator.Data.Models.Responses;
+using Congratulator.Data.Models.ViewModels;
 
 namespace Congratulator.Data.Service.Interfaces
 {
@@ -7,7 +8,7 @@ namespace Congratulator.Data.Service.Interfaces
     {
 		Task<BaseResponse<IEnumerable<Person>>> GetPersons();
 		Task<BaseResponse<Person>> GetPerson(int id);
-		Task<BaseResponse<bool>> CreatePerson(Person product);
+		Task<BaseResponse<bool>> CreatePerson(PersonViewModel product);
 		Task<BaseResponse<bool>> DeletePerson(int id);
 		Task<BaseResponse<IEnumerable<Person>>> GetPersonByName(string name);
 		Task<BaseResponse<IEnumerable<Person>>> GetPersonsByDate(DateTime date);

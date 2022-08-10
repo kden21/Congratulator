@@ -1,4 +1,5 @@
 ﻿using Congratulator.Data.Models;
+using Congratulator.Data.Models.ViewModels;
 using Congratulator.Data.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -50,14 +51,23 @@ namespace Congratulator.Controllers
             return RedirectToAction("Error");
         }
 
-        [HttpGet]
-        public async Task<ActionResult> CreatePerson(Person model)
+        [HttpPost]
+        public async Task<ActionResult> CreatePerson(PersonViewModel model)
         {
-            var response = await _personService.CreatePerson(model);
-            if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
-                return RedirectToAction("GetPersons");
-            return RedirectToAction("Error");
+            if (ModelState.IsValid)
+            {
+                var response = await _personService.CreatePerson(model);
+                if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
+                    return RedirectToAction("GetPersons", "Person");
+                ModelState.AddModelError("", response.Description);
+            }
+            return View(model);
+            //if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
+                //return RedirectToAction("GetPersons");
+            //return RedirectToAction("Error");
         }
+        [HttpGet]
+        public IActionResult CreatePerson() => View();
 
     }
 }
