@@ -3,6 +3,7 @@ using System;
 using Congratulator.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Congratulator.Migrations
 {
     [DbContext(typeof(CongratulatorContext))]
-    partial class CongratulatorContextModelSnapshot : ModelSnapshot
+    [Migration("20220811075358_addSourceImage")]
+    partial class addSourceImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,13 +32,13 @@ namespace Congratulator.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("Avatar")
-                        .HasColumnType("bytea");
-
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SourceImage")
                         .HasColumnType("text");
 
                     b.Property<string>("Surname")

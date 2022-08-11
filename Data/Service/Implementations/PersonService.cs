@@ -51,11 +51,26 @@ namespace Congratulator.Data.Service.Implementations
             var baseResponse = new BaseResponse<bool>();
             try
             {
+                byte[]? imageData = null;
+                if (model.Avatar!=null)
+                {
+                    
+                    // считываем переданный файл в массив байтов
+                    using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.Avatar.Length);
+
+                    }
+                    
+                }
+                
                 var person = new Person()
                 {
                     Name = model.Name,
                     Surname = model.Surname,
                     DateOfBirth = model.DateOfBirth,
+                    Avatar = imageData
+                    //SourceImage = model.ImageToBase64(model.PathImage, )
                     //Id = null
                     
                 };
@@ -101,7 +116,7 @@ namespace Congratulator.Data.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<Person>> EditPerson(int id, Person model)
+        public async Task<BaseResponse<Person>> EditPerson(int id, EditPersonViewModel model)
         {
             var baseResponse = new BaseResponse<Person>();
             try
@@ -113,11 +128,33 @@ namespace Congratulator.Data.Service.Implementations
                     baseResponse.Description = "Person not found";
                     return baseResponse;
                 }
-                person.Name = model.Name;
-                person.Surname = model.Surname;
-                person.DateOfBirth = model.DateOfBirth;
-                person.YearLastCongratulations = model.YearLastCongratulations;
+                byte[]? imageData = null;
+                if (model.Avatar != null)
+                {
+
+                    // считываем переданный файл в массив байтов
+                    using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.Avatar.Length);
+                        person.Avatar = imageData;
+                    }
+
+                }
+                
+                //model.Person = person;
+                if (model.Name!=null)
+                    person.Name = model.Name;
+                if (model.Surname != null)
+                    person.Surname = model.Surname;
+                if (model.DateOfBirth != null)
+                    person.DateOfBirth = (DateTime)model.DateOfBirth;
+                if (model.YearLastCongratulations != null)
+                    person.YearLastCongratulations = int.Parse(model.YearLastCongratulations);
                 await _personRepository.Update(person);
+                baseResponse.Description = "Пользователь успешно изменен";
+                baseResponse.StatusCode = StatusCode.OK;
+                //alert('Пользователь успешно изменен')
+                //MessageBox
                 return baseResponse;
             }
             catch (Exception ex)
@@ -222,6 +259,34 @@ namespace Congratulator.Data.Service.Implementations
                     return baseResponse;
                 }
                 baseResponse.Data = persons;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<Person>>()
+                {
+                    Description = $"[GetPersons] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<BaseResponse<IEnumerable<Person>>> GetPersons(StatusSorting statusSorting)
+        {
+            var baseResponse = new BaseResponse<IEnumerable<Person>>();
+            try
+            {
+                var persons = await _personRepository.Select();
+                var sortPersons = persons.OrderByDescending(x => x.Name);
+                if (persons.Count == 0)
+                {
+                    baseResponse.Data = persons;
+                    baseResponse.Description = "Найдено 0 элементов";
+                    baseResponse.StatusCode = StatusCode.OK;
+                    return baseResponse;
+                }
+                baseResponse.Data = sortPersons;
                 baseResponse.StatusCode = StatusCode.OK;
                 return baseResponse;
             }

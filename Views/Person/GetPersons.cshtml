@@ -1,16 +1,26 @@
 ﻿@using Congratulator.Data.Models
+@using Congratulator.Data.Models.Enums
 @model List<Person>
 
-
+    <div class="row">
+         <nav class="nav nav-pills flex-column flex-sm-row">
+  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="SortPersons" asp-controller="Person" asp-route-statusSorting="@StatusSorting.Ascending" onclick="colorButton(this)">Возрастание</a>
+  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-date="@DateTime.Today.ToString()" onclick="colorButton(this)">Убывание</a>
+  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-date="@DateTime.Today.AddDays(1).ToString()" onclick="colorButton(this)">Возрастание ОС</a>
+  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-date="@DateTime.Today.AddDays(2).ToString()" onclick="colorButton(this)">Убывание ОС</a>
+</nav>
+     </div>
     @if (Model.Count!=0)
     {
          <div class="row">
           @foreach(Person p in @Model)
 	{
              <div class="col-md-3 m-4 rounded-3" style="box-shadow:0 1px 3px #5b4343; padding:1vh; background-color:#695e97">
-                 <a asp-controller="Person" asp-action="DeletePerson" asp-route-id="@p.Id"><img style="height:4vh;width:4vh" src="https://cdn.picpng.com/delete/delete-remove-cross-red-cancel-86579.png"/></a>
+                 <a asp-controller="Person" asp-action="DeletePerson" asp-route-id="@p.Id"><img style="margin:1vh 3vh 0 1vh;height:4vh;width:4vh" src="https://cdn.picpng.com/delete/delete-remove-cross-red-cancel-86579.png"/></a>
+                  <a form method="post" class="" asp-controller="Person" asp-action="EditPerson" asp-route-id="@p.Id"><img style="margin-top:1vh; height:4vh;width:4vh" src="https://www.clipartmax.com/png/full/121-1212362_edit-profile-comments-edit-profile-picture-icon.png"/></a>
                 <div>
-                     <img class="img-fluid rounded-3 rounded m-auto d-block" style="height:40vh; object-fit: contain" src="https://uchebnik.mos.ru/system_2/atomic_objects/files/008/982/781/original/yandex_image20210116-1487-tdf68h.jpg"/>
+                    
+                     <img class="img-fluid rounded-3 rounded m-auto d-block" style="height:40vh; object-fit: contain" src="@p.AvatarUrl()"/>
                 </div>
                 <div style="text-align:center"><h2 style="color:#ffffff">@p.Name @p.Surname</h2></div>
                 @if(@p.Age(DateTime.Now)==-1){
@@ -35,7 +45,7 @@
                         else
                         {
                             <div class="rounded-3" style="text-align:center; background-color:#86cc93">
-                            <a asp-controller="Person" asp-action="Congratulate" asp-route-contr="Home" asp-route-act="Index"
+                            <a asp-controller="Person" asp-action="Congratulate" asp-route-contr="Person" asp-route-act="GetPersons"
                             asp-route-id="@p.Id" asp-route-year="@DateTime.Today.Year"><p style="color:#ffffff">Поздравить в этом году</p></a>
                             </div>
                         }

@@ -1,5 +1,6 @@
 ﻿using Congratulator.Data.Interfaces;
 using Congratulator.Data.Models;
+using Congratulator.Data.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Congratulator.Data.Repositories
@@ -49,6 +50,11 @@ namespace Congratulator.Data.Repositories
             return await persons.ToListAsync();
         }
 
+        public async Task<List<Person>> Select(StatusSorting statusSorting)
+        {
+            var persons = await _context.Persons.ToListAsync();
+            return persons;
+        }
         public async Task<List<Person>> Select()
         {
             var persons = await _context.Persons.ToListAsync();

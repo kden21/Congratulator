@@ -1,4 +1,5 @@
 ﻿using Congratulator.Data.Models;
+using Congratulator.Data.Models.Enums;
 using Congratulator.Data.Models.ViewModels;
 using Congratulator.Data.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -25,10 +26,21 @@ namespace Congratulator.Controllers
 
         [HttpGet]
         public async Task<ActionResult> GetPersons()
-        {
+        { 
+            
             var response = await _personService.GetPersons();
             if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
                 return View(response.Data.ToList());
+            return RedirectToAction("Error");
+        }
+
+        [HttpGet, ActionName("SortPersons")]
+        public async Task<ActionResult> GetPersons(StatusSorting statusSorting)
+        {
+
+            var response = await _personService.GetPersons(statusSorting);
+            if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
+                return RedirectToAction("GetPersons", "Person");//View(response.Data.ToList());
             return RedirectToAction("Error");
         }
 
@@ -62,12 +74,26 @@ namespace Congratulator.Controllers
                 ModelState.AddModelError("", response.Description);
             }
             return View(model);
-            //if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
-                //return RedirectToAction("GetPersons");
-            //return RedirectToAction("Error");
         }
         [HttpGet]
         public IActionResult CreatePerson() => View();
 
+        [HttpPost]
+        public async Task<ActionResult> EditPerson(int id, EditPersonViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _personService.EditPerson(id, model); ;
+                if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
+                    return RedirectToAction("GetPersons", "Person");
+                ModelState.AddModelError("EditPerson", response.Description);
+            }
+            return View(model);
+            //if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
+            //return RedirectToAction("GetPersons");
+            //return RedirectToAction("Error");
+        }
+        [HttpGet]
+        public ActionResult EditPerson(int id) =>View();
     }
 }
