@@ -1,29 +1,31 @@
 ﻿@using Congratulator.Data.Models.ViewModels
 @model PersonViewModel
 
-<form enctype="multipart/form-data" method="post" asp-controller="Person" asp-action="CreatePerson">
+<div class="card-input">
+	<form enctype="multipart/form-data" method="post" asp-controller="Person" asp-action="EditPerson">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
-        <label asp-for="Name"></label><br/>
+        <label >Имя</label><br/>
         <input class="form-control" asp-for="Name" />
         <p><span class="input-validatoin-text" asp-validation-for="Name"></span></p>
     </div>
     <div>
-        <label asp-for="Surname"></label><br />
+        <label asp-for="Surname">Фамилия</label><br />
         <input class="form-control" asp-for="Surname" />
         <p><span class="input-validatoin-text" asp-validation-for="Surname"></span></p>
     </div>
     <div>
-        <label asp-for="DateOfBirth"></label><br />
+        <label>Дата рождения</label><br />
         <input class="form-control" asp-for="DateOfBirth" />
         <p><span class="input-validatoin-text" asp-validation-for="DateOfBirth"></span></p>
     </div>
     <div>
-        <label>Аватар</label>
+        <label>Фото именинника</label>
         <input name="Avatar" type="file"  class="form-control" />
         <p><span class="input-validatoin-text"  asp-validation-for="Avatar"></span></p>
     </div>
     <div>
-        <input class="button-register" type="submit" value="Добавить" onclick="alert('Пользователь успешно добавлен')" />
+        <input class="button-input" type="submit" value="Добавить"  />
     </div>
 </form>
+</div>

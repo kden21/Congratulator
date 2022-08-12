@@ -1,7 +1,7 @@
 ﻿@using Congratulator.Data.Models.ViewModels
 @model EditPersonViewModel
-
-<form enctype="multipart/form-data" method="post" asp-controller="Person" asp-action="EditPerson">
+<div class="card-input">
+	<form enctype="multipart/form-data" method="post" asp-controller="Person" asp-action="EditPerson">
     <div asp-validation-summary="ModelOnly"></div>
     <div>
         <label >Имя</label><br/>
@@ -29,6 +29,7 @@
         <p><span class="input-validatoin-text" asp-validation-for="YearLastCongratulations"></span></p>
     </div>
     <div>
-        <input class="button-register" type="submit" value="Добавить"  />
+        <input class="button-input" type="submit" value="Добавить"  />
     </div>
 </form>
+</div>

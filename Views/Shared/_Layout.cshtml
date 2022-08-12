@@ -10,20 +10,22 @@
     <link rel="stylesheet" href="~/Congratulator.styles.css" asp-append-version="true" />
     <link rel="shortcut icon" href="https://my-lens.ru/image/cache/catalog/template/gift-box%281%29-210x210.png"/>
     <link rel="stylesheet" href="~/css/home.css"/>
+    <link rel="stylesheet" href="~/css/formInput.css"/>
 </head>
 <body style="background-color: #695e97">
     <div class="container-fluid">
         <div class="row" >
             <div class="col-md-4 col-lg-3">
-                <img class="m-3" src="https://localhost:7177/assets/emblema.png" alt="Здесь должна быть картинка" style="width:45vh">
+                <a asp-controller="Home" asp-action="Index" asp-route-date="@DateTime.Today.Day"><div><img class="m-3" src="https://localhost:7177/assets/emblema.png" alt="Здесь должна быть картинка" style="width:45vh"/></div></a>
        
             <nav class="nav flex-column">
+                <a class="nav-home-table  nav-link" asp-controller="Home" asp-action="Index" asp-route-date="@DateTime.Today.Day">>Главная</a>
   <a class="nav-home-table  nav-link" asp-controller="Person" asp-action="GetPersons" asp-route-statusSorting="@StatusSorting.AscendingRelativeToToday">Все ДР</a>
   <a form method="post" class="nav-home-table  nav-link" asp-controller="Person" asp-action="CreatePerson">Добавить</a>
 </nav>
          </div>
            
-            <div class="col-md-8 col-lg-9 main-unit" style="background-color: #FFFFFF" >
+            <div class="col-md-8 col-lg-9 main-unit" style="background-color: #FFFFFF; padding:3vh" >
                 
                     <main role="main" class="pb-3">
                         @RenderBody()

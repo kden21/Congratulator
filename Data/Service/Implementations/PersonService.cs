@@ -303,6 +303,7 @@ namespace Congratulator.Data.Service.Implementations
                         sortPersons = persons.OrderByDescending(x => x.Name);
                         break;
                     case StatusSorting.AscendingRelativeToToday:
+                        //Переписать этот метод и swith под вопросом?
                         IEnumerable<Person>  sPersons = persons.OrderBy(x => x.DateOfBirth.Day).OrderBy(x => x.DateOfBirth.Month);
                         List<Person>? sortPersons1 = new List<Person>();
                         List<Person>? sortPersons2 = new List<Person>();

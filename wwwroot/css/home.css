@@ -35,3 +35,12 @@
         background-color: rgb(179, 153, 231, 0.2);
         /*box-shadow: 0 1px 1px #5b4343;*/
     }
+.icon-delete-edit {
+    margin-top: 1vh;
+    height: 4vh;
+    width: 4vh
+}
+    .icon-delete-edit:hover {
+        height: 5vh;
+        width: 5vh
+    }

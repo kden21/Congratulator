@@ -25,7 +25,7 @@ namespace Congratulator.Controllers
         }
 
         [HttpGet, ActionName("SortPersons")]
-        
+        //Скорее всего нужно удалить
         public async Task<ActionResult> GetPersons()
         { 
             
