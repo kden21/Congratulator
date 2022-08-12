@@ -19,7 +19,7 @@
                 <a asp-controller="Home" asp-action="Index" asp-route-date="@DateTime.Today.Day"><div><img class="m-3" src="https://localhost:7177/assets/emblema.png" alt="Здесь должна быть картинка" style="width:45vh"/></div></a>
        
             <nav class="nav flex-column">
-                <a class="nav-home-table  nav-link" asp-controller="Home" asp-action="Index" asp-route-date="@DateTime.Today.Day">>Главная</a>
+                <a class="nav-home-table  nav-link" asp-controller="Home" asp-action="Index" asp-route-date="@DateTime.Today.Day">Главная</a>
   <a class="nav-home-table  nav-link" asp-controller="Person" asp-action="GetPersons" asp-route-statusSorting="@StatusSorting.AscendingRelativeToToday">Все ДР</a>
   <a form method="post" class="nav-home-table  nav-link" asp-controller="Person" asp-action="CreatePerson">Добавить</a>
 </nav>

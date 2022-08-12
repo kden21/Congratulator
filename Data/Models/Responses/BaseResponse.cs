@@ -8,6 +8,7 @@ namespace Congratulator.Data.Models.Responses
 		public StatusCode StatusCode { get; set; }
 		public T? Data { get; set; }
 	}
+
 	public interface IBaseResponse<T>
 	{
 		T? Data { get; set; }

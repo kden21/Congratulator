@@ -24,8 +24,8 @@ namespace Congratulator.Controllers
             return RedirectToAction("Error");
         }
 
-        [HttpGet, ActionName("SortPersons")]
         //Скорее всего нужно удалить
+        [HttpGet, ActionName("SortPersons")]
         public async Task<ActionResult> GetPersons()
         { 
             
@@ -90,10 +90,8 @@ namespace Congratulator.Controllers
                 ModelState.AddModelError("EditPerson", response.Description);
             }
             return View(model);
-            //if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
-            //return RedirectToAction("GetPersons");
-            //return RedirectToAction("Error");
         }
+
         [HttpGet]
         public ActionResult EditPerson(int id) =>View();
     }

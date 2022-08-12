@@ -27,10 +27,6 @@ namespace Congratulator.Data.Service.Implementations
                     baseResponse.Description = "Person not found";
                     return baseResponse;
                 }
-                //person.Name = model.Name;
-                //person.Surname = model.Surname;
-                //person.DateOfBirth = model.DateOfBirth;
-
                 person.YearLastCongratulations = year;
                 await _personRepository.Update(person);
                 baseResponse.StatusCode = StatusCode.OK;
@@ -54,25 +50,18 @@ namespace Congratulator.Data.Service.Implementations
                 byte[]? imageData = null;
                 if (model.Avatar!=null)
                 {
-                    
                     // считываем переданный файл в массив байтов
                     using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
                     {
                         imageData = binaryReader.ReadBytes((int)model.Avatar.Length);
-
                     }
-                    
                 }
-                
                 var person = new Person()
                 {
                     Name = model.Name,
                     Surname = model.Surname,
                     DateOfBirth = model.DateOfBirth,
                     Avatar = imageData
-                    //SourceImage = model.ImageToBase64(model.PathImage, )
-                    //Id = null
-                    
                 };
                 await _personRepository.Create(person);
                 baseResponse.Description = "Пользователь успешно добавлен";
@@ -131,17 +120,13 @@ namespace Congratulator.Data.Service.Implementations
                 byte[]? imageData = null;
                 if (model.Avatar != null)
                 {
-
                     // считываем переданный файл в массив байтов
                     using (var binaryReader = new BinaryReader(model.Avatar.OpenReadStream()))
                     {
                         imageData = binaryReader.ReadBytes((int)model.Avatar.Length);
                         person.Avatar = imageData;
                     }
-
                 }
-                
-                //model.Person = person;
                 if (model.Name!=null)
                     person.Name = model.Name;
                 if (model.Surname != null)
@@ -153,8 +138,6 @@ namespace Congratulator.Data.Service.Implementations
                 await _personRepository.Update(person);
                 baseResponse.Description = "Пользователь успешно изменен";
                 baseResponse.StatusCode = StatusCode.OK;
-                //alert('Пользователь успешно изменен')
-                //MessageBox
                 return baseResponse;
             }
             catch (Exception ex)
@@ -278,8 +261,6 @@ namespace Congratulator.Data.Service.Implementations
             try
             {
                 var persons = await _personRepository.Select();
-                
-                
                 if (persons.Count == 0)
                 {
                     baseResponse.Data = persons;
@@ -320,7 +301,6 @@ namespace Congratulator.Data.Service.Implementations
                 baseResponse.Data = sortPersons;
                 baseResponse.StatusCode = StatusCode.OK;
                 return baseResponse;
-
             }
             catch (Exception ex)
             {

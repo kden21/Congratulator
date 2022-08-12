@@ -13,11 +13,6 @@ namespace Congratulator.Data.Repositories
             _context = context;
         }
 
-        //public async Task<bool> Congratulate(int id)
-        //{
-            
-        //}
-
         public async Task<bool> Create(Person entity)
         {
             await _context.Persons.AddAsync(entity);
@@ -55,6 +50,7 @@ namespace Congratulator.Data.Repositories
             var persons = await _context.Persons.ToListAsync();
             return persons;
         }
+
         public async Task<List<Person>> Select()
         {
             var persons = await _context.Persons.ToListAsync();

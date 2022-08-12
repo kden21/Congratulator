@@ -23,12 +23,10 @@ namespace Congratulator.Controllers
             {
                 dateTime = DateTime.Parse(date);
             }
-            catch (Exception ex)
+            catch (Exception)
             {      
                 dateTime = DateTime.Today;
             }
-            
-            
             var response = await _personService.GetPersonsByDate(dateTime);
             if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
                 return View(response.Data.ToList());

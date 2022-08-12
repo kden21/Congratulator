@@ -9,16 +9,15 @@
     width: 60vh;
     box-shadow: 0 1px 5px #5b4343;
 }
+
 .button-input {
     border-radius: 10px;
     color: #695e97;
     background-color: white;
-    /* margin: auto auto; */
     box-shadow: 0 1px 5px #5b4343;
     border: initial;
 }
     .button-input:hover {
-        /*color: white;*/
         background-color: #f3e4fd;
         font-weight:600;
     }

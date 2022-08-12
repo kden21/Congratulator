@@ -5,7 +5,6 @@
         Ascending,
         Descending,
         AscendingRelativeToToday,
-        //DescendingRelativeToToday,
         AscendingByName,
         DescendingByName
     }

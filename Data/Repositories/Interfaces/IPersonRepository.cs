@@ -8,6 +8,5 @@ namespace Congratulator.Data.Interfaces
         Task<List<Person>> GetByName(string name);
         Task<List<Person>> GetByDate(DateTime date);
         Task<List<Person>> Select(StatusSorting statusSorting);
-        //Task<bool> Congratulate(int id);
     }
 }
