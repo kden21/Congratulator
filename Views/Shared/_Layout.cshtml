@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Congratulator.Data.Models.Enums
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,7 +18,7 @@
                 <img class="m-3" src="https://localhost:7177/assets/emblema.png" alt="Здесь должна быть картинка" style="width:45vh">
        
             <nav class="nav flex-column">
-  <a class="nav-home-table  nav-link" asp-controller="Person" asp-action="GetPersons">Все ДР</a>
+  <a class="nav-home-table  nav-link" asp-controller="Person" asp-action="GetPersons" asp-route-statusSorting="@StatusSorting.AscendingRelativeToToday">Все ДР</a>
   <a form method="post" class="nav-home-table  nav-link" asp-controller="Person" asp-action="CreatePerson">Добавить</a>
 </nav>
          </div>

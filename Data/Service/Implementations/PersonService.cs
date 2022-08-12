@@ -278,7 +278,8 @@ namespace Congratulator.Data.Service.Implementations
             try
             {
                 var persons = await _personRepository.Select();
-                var sortPersons = persons.OrderByDescending(x => x.Name);
+                
+                
                 if (persons.Count == 0)
                 {
                     baseResponse.Data = persons;
@@ -286,9 +287,39 @@ namespace Congratulator.Data.Service.Implementations
                     baseResponse.StatusCode = StatusCode.OK;
                     return baseResponse;
                 }
+                IEnumerable<Person>? sortPersons = null;
+                switch (statusSorting)
+                {
+                    case StatusSorting.Ascending:
+                        sortPersons = persons.OrderBy(x => x.DateOfBirth.Day).OrderBy(x => x.DateOfBirth.Month);
+                        break;
+                    case StatusSorting.Descending:
+                        sortPersons = persons.OrderByDescending(x => x.DateOfBirth.Day).OrderByDescending(x => x.DateOfBirth.Month);
+                        break;
+                    case StatusSorting.AscendingByName:
+                        sortPersons = persons.OrderBy(x => x.Name);
+                        break;
+                    case StatusSorting.DescendingByName:
+                        sortPersons = persons.OrderByDescending(x => x.Name);
+                        break;
+                    case StatusSorting.AscendingRelativeToToday:
+                        IEnumerable<Person>  sPersons = persons.OrderBy(x => x.DateOfBirth.Day).OrderBy(x => x.DateOfBirth.Month);
+                        List<Person>? sortPersons1 = new List<Person>();
+                        List<Person>? sortPersons2 = new List<Person>();
+                        foreach (Person person in sPersons)
+                        {
+                            if((person.DateOfBirth.Month<DateTime.Today.Month)||((person.DateOfBirth.Month == DateTime.Today.Month) && (person.DateOfBirth.Day < DateTime.Today.Day)))
+                                sortPersons1.Add(person);
+                            else
+                                sortPersons2.Add(person);
+                        }
+                        sortPersons = sortPersons2.Concat(sortPersons1).ToList();
+                        break;
+                }
                 baseResponse.Data = sortPersons;
                 baseResponse.StatusCode = StatusCode.OK;
                 return baseResponse;
+
             }
             catch (Exception ex)
             {

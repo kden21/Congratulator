@@ -4,10 +4,10 @@
 
     <div class="row">
          <nav class="nav nav-pills flex-column flex-sm-row">
-  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="SortPersons" asp-controller="Person" asp-route-statusSorting="@StatusSorting.Ascending" onclick="colorButton(this)">Возрастание</a>
-  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-date="@DateTime.Today.ToString()" onclick="colorButton(this)">Убывание</a>
-  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-date="@DateTime.Today.AddDays(1).ToString()" onclick="colorButton(this)">Возрастание ОС</a>
-  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-date="@DateTime.Today.AddDays(2).ToString()" onclick="colorButton(this)">Убывание ОС</a>
+  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-statusSorting="@StatusSorting.Ascending" onclick="colorButton(this)">Возрастание</a>
+  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-statusSorting="@StatusSorting.Descending" onclick="colorButton(this)">Убывание</a>
+  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-statusSorting="@StatusSorting.AscendingByName" onclick="colorButton(this)">Возрастание ОС</a>
+  <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-statusSorting="@StatusSorting.DescendingByName" onclick="colorButton(this)">Убывание ОС</a>
 </nav>
      </div>
     @if (Model.Count!=0)

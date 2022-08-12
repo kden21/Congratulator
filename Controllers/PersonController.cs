@@ -24,7 +24,8 @@ namespace Congratulator.Controllers
             return RedirectToAction("Error");
         }
 
-        [HttpGet]
+        [HttpGet, ActionName("SortPersons")]
+        
         public async Task<ActionResult> GetPersons()
         { 
             
@@ -34,13 +35,13 @@ namespace Congratulator.Controllers
             return RedirectToAction("Error");
         }
 
-        [HttpGet, ActionName("SortPersons")]
+        [HttpGet]
         public async Task<ActionResult> GetPersons(StatusSorting statusSorting)
         {
 
             var response = await _personService.GetPersons(statusSorting);
             if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
-                return RedirectToAction("GetPersons", "Person");//View(response.Data.ToList());
+                return View(response.Data.ToList());
             return RedirectToAction("Error");
         }
 
