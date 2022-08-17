@@ -25,6 +25,11 @@
             <p><span class="input-validatoin-text"  asp-validation-for="Avatar"></span></p>
         </div>
         <div>
+            <label >Номер телефона</label><br/>
+            <input class="form-control" placeholder="9ххххххххх" id="phone" asp-for="PhoneNumber" />
+            <p><span class="input-validatoin-text" asp-validation-for="PhoneNumber"></span></p>
+        </div>
+        <div>
             <input class="button-input" type="submit" value="Добавить"  />
         </div>
     </form>

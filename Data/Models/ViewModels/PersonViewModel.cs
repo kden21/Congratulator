@@ -20,6 +20,11 @@ namespace Congratulator.Data.Models.ViewModels
         [Required(ErrorMessage = "Введите дату рождения")]
         public DateTime DateOfBirth { get; set; }
 
+        //[Required(ErrorMessage = "You must provide a phone number")]
+        //[Display(Name = "Home Phone")]
+        [DataType(DataType.PhoneNumber)]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Неккоректный номер телефона")]
+        public string? PhoneNumber { get; set; }
         public IFormFile? Avatar { get; set; }
     }
 }

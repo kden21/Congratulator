@@ -1,5 +1,4 @@
-﻿
-using Congratulator.Data.Models;
+﻿using Congratulator.Data.Models;
 using Congratulator.Data.Models.Enums;
 using Congratulator.Data.Models.ViewModels;
 using Congratulator.Data.Service.Interfaces;
@@ -39,10 +38,6 @@ namespace Congratulator.Controllers
         [HttpGet]
         public async Task<ActionResult> GetPersons(StatusSorting statusSorting)
         {
-            //DateTime date1 = new DateTime(2000, 1, 10);
-            //DateTime date2 = new DateTime(2020, 1, 7);
-            //var date3 = (date2.Day - DateTime.Today.Day);
-            //var date4 = date1 - DateTime.Today;
             var response = await _personService.GetPersons(statusSorting);
             if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
                 return View(response.Data.ToList());
@@ -52,7 +47,6 @@ namespace Congratulator.Controllers
         [HttpGet]
         public async Task<ActionResult> GetPerson(int id)
         {
-
             var response = await _personService.GetPerson(id);
             if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
                 return View(response.Data);
@@ -76,7 +70,7 @@ namespace Congratulator.Controllers
                 var response = await _personService.CreatePerson(model);
                 if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
                     return RedirectToAction("GetPersons", "Person");
-                ModelState.AddModelError("", response.Description);
+                ModelState.AddModelError("", response.Description!);
             }
             return View(model);
         }
@@ -91,7 +85,7 @@ namespace Congratulator.Controllers
                 var response = await _personService.EditPerson(id, model); 
                 if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
                     return RedirectToAction("GetPersons", "Person");
-                ModelState.AddModelError("EditPerson", response.Description);
+                ModelState.AddModelError("EditPerson", response.Description!); 
             }
             else
             {
@@ -99,10 +93,7 @@ namespace Congratulator.Controllers
                 if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
                 {
                     model.Person = response.Data;
-                    //return RedirectToAction("GetPersons", "Person");
                 }
-                   
-                //ModelState.AddModelError("EditPerson", response.Description);
             }
             return View(model);
         }

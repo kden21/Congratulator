@@ -61,8 +61,9 @@ namespace Congratulator.Data.Service.Implementations
                     Name = model.Name,
                     Surname = model.Surname,
                     DateOfBirth = model.DateOfBirth,
-                    Avatar = imageData
-                };
+                    Avatar = imageData,
+                    PhoneNumber = "+7" + model.PhoneNumber
+            };
                 await _personRepository.Create(person);
                 baseResponse.Description = "Пользователь успешно добавлен";
                 baseResponse.StatusCode = StatusCode.OK;
@@ -128,15 +129,15 @@ namespace Congratulator.Data.Service.Implementations
                     }
                 }
                
-                    person.Name = model.Name;
+                person.Name = model.Name;
+                person.Surname = model.Surname;
+                person.DateOfBirth = (DateTime)model.DateOfBirth;
 
-                    person.Surname = model.Surname;
-                    person.DateOfBirth = (DateTime)model.DateOfBirth;
                 if (model.YearLastCongratulations == null)
                     person.YearLastCongratulations = null;
                 else
                     person.YearLastCongratulations = int.Parse(model.YearLastCongratulations);
-
+                person.PhoneNumber = "+7" + model.PhoneNumber;
                 await _personRepository.Update(person);
                 baseResponse.Description = "Пользователь успешно изменен";
                 baseResponse.StatusCode = StatusCode.OK;
@@ -337,7 +338,7 @@ namespace Congratulator.Data.Service.Implementations
             {
                 return new BaseResponse<EditPersonViewModel>()
                 {
-                    Description = $"[GetPerson1] : {ex.Message}",
+                    Description = $"[GetPersonForEdit] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

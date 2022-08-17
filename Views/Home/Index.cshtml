@@ -29,7 +29,7 @@
 	{
         <div class="col-md-3 m-4 rounded-3" style="box-shadow:0 1px 3px #5b4343; padding:1vh; background-color:#695e97">
             <div>
-                <img class="img-fluid rounded-3 rounded m-auto d-block" style="height:40vh; object-fit: contain" src="@p.AvatarUrl()"/>
+                 <a asp-controller="Person" asp-action="GetPerson" asp-route-id="@p.Id"><img class="img-fluid rounded-3 rounded m-auto d-block" style="height:40vh; object-fit: contain" src="@p.AvatarUrl()"/></a>
             </div>
             <div style="text-align:center"><h2 style="color:#ffffff">@p.Name @p.Surname</h2></div>
             @if(@p.Age(DateTime.Now)==-1){

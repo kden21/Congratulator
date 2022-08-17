@@ -19,7 +19,7 @@
             <a asp-controller="Person" asp-action="DeletePerson" asp-route-id="@p.Id"><img style="margin:1vh 3vh 0 1vh;height:4vh;width:4vh" src="https://localhost:7177/assets/delete.svg"/></a>
             <a form method="post" class="" asp-controller="Person" asp-action="EditPerson" asp-route-id="@p.Id"><img style="margin-top:1vh; height:4vh;width:4vh" src="https://localhost:7177/assets/edit.svg"/></a>
         <div>                  
-            <img class="img-fluid rounded-3 rounded m-auto d-block" style="height:40vh; object-fit: contain" src="@p.AvatarUrl()"/>
+            <a asp-controller="Person" asp-action="GetPerson" asp-route-id="@p.Id"><img class="img-fluid rounded-3 rounded m-auto d-block" style="height:40vh; object-fit: contain" src="@p.AvatarUrl()"/></a>
         </div>
         <div style="text-align:center"><h2 style="color:#ffffff">@p.Name @p.Surname</h2></div>
             @if(@p.Age(DateTime.Now)==-1){
