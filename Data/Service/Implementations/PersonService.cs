@@ -127,14 +127,16 @@ namespace Congratulator.Data.Service.Implementations
                         person.Avatar = imageData;
                     }
                 }
-                if (model.Name!=null)
+               
                     person.Name = model.Name;
-                if (model.Surname != null)
+
                     person.Surname = model.Surname;
-                if (model.DateOfBirth != null)
                     person.DateOfBirth = (DateTime)model.DateOfBirth;
-                if (model.YearLastCongratulations != null)
+                if (model.YearLastCongratulations == null)
+                    person.YearLastCongratulations = null;
+                else
                     person.YearLastCongratulations = int.Parse(model.YearLastCongratulations);
+
                 await _personRepository.Update(person);
                 baseResponse.Description = "Пользователь успешно изменен";
                 baseResponse.StatusCode = StatusCode.OK;
@@ -285,9 +287,9 @@ namespace Congratulator.Data.Service.Implementations
                         break;
                     case StatusSorting.AscendingRelativeToToday:
                         //Переписать этот метод и swith под вопросом?
-                        IEnumerable<Person>  sPersons = persons.OrderBy(x => x.DateOfBirth.Day).OrderBy(x => x.DateOfBirth.Month);
-                        List<Person>? sortPersons1 = new List<Person>();
-                        List<Person>? sortPersons2 = new List<Person>();
+                        IEnumerable<Person> sPersons = persons.OrderBy(x => x.DateOfBirth.Day).OrderBy(x => x.DateOfBirth.Month);
+                        List<Person>? sortPersons1 = new();
+                        List<Person>? sortPersons2 = new();
                         foreach (Person person in sPersons)
                         {
                             if((person.DateOfBirth.Month<DateTime.Today.Month)||((person.DateOfBirth.Month == DateTime.Today.Month) && (person.DateOfBirth.Day < DateTime.Today.Day)))
@@ -307,6 +309,35 @@ namespace Congratulator.Data.Service.Implementations
                 return new BaseResponse<IEnumerable<Person>>()
                 {
                     Description = $"[GetPersons] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<BaseResponse<EditPersonViewModel>> GetPersonForEdit(int id)
+        {
+            var baseResponse = new BaseResponse<EditPersonViewModel>();
+            EditPersonViewModel model = new();
+            model.Person= await _personRepository.Get(id);
+            try
+            {
+                var person = await _personRepository.Get(id);
+                if (person == null)
+                {
+                    baseResponse.Description = "Person not found";
+                    baseResponse.StatusCode = StatusCode.PersonNotFound;
+                    return baseResponse;
+                }
+                model.Person = person;
+                baseResponse.Data = model;
+                baseResponse.StatusCode = StatusCode.OK;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<EditPersonViewModel>()
+                {
+                    Description = $"[GetPerson1] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }

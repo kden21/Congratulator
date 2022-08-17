@@ -16,5 +16,6 @@ namespace Congratulator.Data.Service.Interfaces
 		Task<BaseResponse<IEnumerable<Person>>> GetPersonsByDate(DateTime date);
 		Task<BaseResponse<Person>> EditPerson(int id, EditPersonViewModel model);
 		Task<BaseResponse<Person>> Congratulate(int id, int year);
+		Task<BaseResponse<EditPersonViewModel>> GetPersonForEdit(int id);
 	}
 }

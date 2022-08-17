@@ -7,6 +7,7 @@ namespace Congratulator.Data.Models.ViewModels
 {
     public class PersonViewModel
     {
+        public Person? Person { get; set; }
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Введите имя")]
