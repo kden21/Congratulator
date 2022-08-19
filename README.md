@@ -1,5 +1,6 @@
-#**Поздравлятор**
-##Тестовое задание для SolarLab
+# **Поздравлятор**
+
+## Тестовое задание для SolarLab
 На **Главной** странице отображаются ближайшие дни рождения на неделю, также можно посмотреть вчерашние дни рождения
 
 ![Home Page](https://raw.githubusercontent.com/kden21/Congratulator/dev/descriptionImage/homePage.png "Home Page")
