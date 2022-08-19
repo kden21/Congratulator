@@ -11,7 +11,7 @@ namespace Congratulator.Data.Models
         public DateTime DateOfBirth { get; set; }
         public int? YearLastCongratulations { get; set; }
         public byte[]? Avatar { get; set; }
-         public string? PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
         public int Age(DateTime dateNow)
         {
             if(DateOfBirth.Year <= dateNow.Year)

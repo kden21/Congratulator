@@ -16,8 +16,8 @@
             <p style="font-size:medium; color:red"><span class="input-validatoin-text" asp-validation-for="Surname"></span></p>
         </div>
         <div>
-            <label>Дата рождения*</label><br />
-            <input class="form-control" asp-for="@Model.DateOfBirth" value="@Model.Person.DateOfBirth"/>
+            <label>Дата рождения</label><br />
+            <input type="datetime" class="form-control" asp-for="@Model.DateOfBirth" value="@Model.Person.DateOfBirth.ToString("dd/MM/yyyy")"/>
             <p style="font-size:medium; color:red"><span class="input-validatoin-text" asp-validation-for="DateOfBirth"></span></p>
         </div>
         <div>

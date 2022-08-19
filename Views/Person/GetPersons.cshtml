@@ -8,6 +8,7 @@
         <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-statusSorting="@StatusSorting.Descending" onclick="colorButton(this)">По дате<img style="height:3vh;margin:auto 2vh" src="https://localhost:7177/assets/arrowDown.svg" /></a>
         <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-statusSorting="@StatusSorting.AscendingByName" onclick="colorButton(this)">По имени<img style="height:3vh;margin:auto 2vh" src="https://localhost:7177/assets/arrowUp.svg" /></a>
         <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-statusSorting="@StatusSorting.DescendingByName" onclick="colorButton(this)">По имени<img style="height:3vh; margin:auto 2vh" src="https://localhost:7177/assets/arrowDown.svg" /></a>
+        <a class="button-test flex-sm-fill text-sm-center nav-link" asp-action="GetPersons" asp-controller="Person" asp-route-statusSorting="@StatusSorting.AscendingRelativeToToday" onclick="colorButton(this)">Ближайшие</a>
     </nav>
 </div>
 @if (Model.Count!=0)

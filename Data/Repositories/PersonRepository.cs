@@ -39,18 +39,6 @@ namespace Congratulator.Data.Repositories
             return await persons.ToListAsync();
         }
 
-        public async Task<List<Person>> GetByName(string name)
-        {
-            var persons = _context.Persons.Where(p=>p.Name.ToLower()==name.ToLower());
-            return await persons.ToListAsync();
-        }
-
-        public async Task<List<Person>> Select(StatusSorting statusSorting)
-        {
-            var persons = await _context.Persons.ToListAsync();
-            return persons;
-        }
-
         public async Task<List<Person>> Select()
         {
             var persons = await _context.Persons.ToListAsync();

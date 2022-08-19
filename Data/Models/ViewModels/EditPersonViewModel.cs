@@ -14,7 +14,7 @@ namespace Congratulator.Data.Models.ViewModels
         public string? Surname { get; set; }
 
         [Required(ErrorMessage = "Введите дату рождения")]
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
         [MaxLength(4, ErrorMessage = "Год имеет длину 4 символа")]
         [MinLength(4, ErrorMessage = "Год имеет длину 4 символа")]

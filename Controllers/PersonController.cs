@@ -24,17 +24,6 @@ namespace Congratulator.Controllers
             return RedirectToAction("Error");
         }
 
-        //Скорее всего нужно удалить
-        [HttpGet, ActionName("SortPersons")]
-        public async Task<ActionResult> GetPersons()
-        { 
-            
-            var response = await _personService.GetPersons();
-            if (response.StatusCode == Data.Models.Enums.StatusCode.OK)
-                return View(response.Data.ToList());
-            return RedirectToAction("Error");
-        }
-
         [HttpGet]
         public async Task<ActionResult> GetPersons(StatusSorting statusSorting)
         {

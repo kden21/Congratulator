@@ -131,8 +131,7 @@ namespace Congratulator.Data.Service.Implementations
                
                 person.Name = model.Name;
                 person.Surname = model.Surname;
-                person.DateOfBirth = (DateTime)model.DateOfBirth;
-
+                person.DateOfBirth = model.DateOfBirth;
                 if (model.YearLastCongratulations == null)
                     person.YearLastCongratulations = null;
                 else
@@ -205,59 +204,6 @@ namespace Congratulator.Data.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<IEnumerable<Person>>> GetPersonByName(string name)
-        {
-            var baseResponse = new BaseResponse<IEnumerable<Person>>();
-            try
-            {
-                var persons = await _personRepository.GetByName(name);
-                if (persons == null)
-                {
-                    baseResponse.Description = "Persons not found";
-                    baseResponse.StatusCode = StatusCode.PersonNotFound;
-                    return baseResponse;
-                }
-                baseResponse.Data = persons;
-                baseResponse.StatusCode = StatusCode.OK;
-                return baseResponse;
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<IEnumerable<Person>>()
-                {
-                    Description = $"[GetPersonByName] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
-
-        public async Task<BaseResponse<IEnumerable<Person>>> GetPersons()
-        {
-            var baseResponse = new BaseResponse<IEnumerable<Person>>();
-            try
-            {
-                var persons = await _personRepository.Select();
-                if (persons.Count == 0)
-                {
-                    baseResponse.Data = persons;
-                    baseResponse.Description = "Найдено 0 элементов";
-                    baseResponse.StatusCode = StatusCode.OK;
-                    return baseResponse;
-                }
-                baseResponse.Data = persons;
-                baseResponse.StatusCode = StatusCode.OK;
-                return baseResponse;
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<IEnumerable<Person>>()
-                {
-                    Description = $"[GetPersons] : {ex.Message}",
-                    StatusCode = StatusCode.InternalServerError
-                };
-            }
-        }
-
         public async Task<BaseResponse<IEnumerable<Person>>> GetPersons(StatusSorting statusSorting)
         {
             var baseResponse = new BaseResponse<IEnumerable<Person>>();
@@ -268,7 +214,7 @@ namespace Congratulator.Data.Service.Implementations
                 {
                     baseResponse.Data = persons;
                     baseResponse.Description = "Найдено 0 элементов";
-                    baseResponse.StatusCode = StatusCode.OK;
+                    baseResponse.StatusCode = StatusCode.PersonNotFound;
                     return baseResponse;
                 }
                 IEnumerable<Person>? sortPersons = null;
@@ -287,18 +233,9 @@ namespace Congratulator.Data.Service.Implementations
                         sortPersons = persons.OrderByDescending(x => x.Name);
                         break;
                     case StatusSorting.AscendingRelativeToToday:
-                        //Переписать этот метод и swith под вопросом?
-                        IEnumerable<Person> sPersons = persons.OrderBy(x => x.DateOfBirth.Day).OrderBy(x => x.DateOfBirth.Month);
-                        List<Person>? sortPersons1 = new();
-                        List<Person>? sortPersons2 = new();
-                        foreach (Person person in sPersons)
-                        {
-                            if((person.DateOfBirth.Month<DateTime.Today.Month)||((person.DateOfBirth.Month == DateTime.Today.Month) && (person.DateOfBirth.Day < DateTime.Today.Day)))
-                                sortPersons1.Add(person);
-                            else
-                                sortPersons2.Add(person);
-                        }
-                        sortPersons = sortPersons2.Concat(sortPersons1).ToList();
+                        sortPersons = persons.OrderBy(person => person.DateOfBirth.DayOfYear >= DateTime.Now.DayOfYear
+                            ? person.DateOfBirth.DayOfYear - DateTime.Now.DayOfYear
+                            : (DateTime.IsLeapYear(DateTime.Today.Year) ? 366 : 365) - DateTime.Now.DayOfYear + person.DateOfBirth.DayOfYear).ToList();
                         break;
                 }
                 baseResponse.Data = sortPersons;
