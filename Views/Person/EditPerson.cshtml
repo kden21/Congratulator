@@ -1,0 +1,42 @@
+﻿@using Congratulator.Data.Models.ViewModels
+@model EditPersonViewModel
+
+<div class="card-input">
+	<form enctype="multipart/form-data" method="post" asp-controller="Person" asp-action="EditPerson">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            @*<p></p>*@
+            <label asp-for="@Model.Name">Имя*</label><br/>
+            <input class="form-control" asp-for="@Model.Name" value="@Model.Person.Name"/>
+            <p style="font-size:medium; color:red"><span class="input-validatoin-text" asp-validation-for="Name"></span></p>
+        </div>
+        <div>
+            <label asp-for="Surname">Фамилия</label><br />
+            <input class="form-control" asp-for="@Model.Surname" value="@Model.Person.Surname"/>
+            <p style="font-size:medium; color:red"><span class="input-validatoin-text" asp-validation-for="Surname"></span></p>
+        </div>
+        <div>
+            <label>Дата рождения</label><br />
+            <input type="datetime" class="form-control" asp-for="@Model.DateOfBirth" value="@Model.Person.DateOfBirth.ToString("dd/MM/yyyy")"/>
+            <p style="font-size:medium; color:red"><span class="input-validatoin-text" asp-validation-for="DateOfBirth"></span></p>
+        </div>
+        <div>
+            <label>Фото именинника</label>
+            <input name="Avatar" type="file" class="form-control" />
+            <p style="font-size:medium; color:red"><span class="input-validatoin-text"  asp-validation-for="Avatar"></span></p>
+        </div>
+        <div>
+            <label> Дата последнего поздравления</label><br/>
+            <input class="form-control" asp-for="@Model.YearLastCongratulations" value="@Model.Person.YearLastCongratulations"/>
+            <p style="font-size:medium; color:red"><span class="input-validatoin-text" asp-validation-for="YearLastCongratulations"></span></p>
+        </div>
+        <div>
+            <label >Номер телефона</label><br/>
+            <input class="form-control" placeholder="9ххххххххх" id="phone" asp-for="PhoneNumber" />
+            <p><span class="input-validatoin-text" asp-validation-for="PhoneNumber"></span></p>
+        </div>
+        <div>
+            <input class="button-input" type="submit" value="Редактировать"  />
+        </div>
+    </form>
+</div>

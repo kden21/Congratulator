@@ -1,0 +1,10 @@
+﻿@using Congratulator.Data.Models
+@model Person
+
+<div class="card-input">
+	<img src="@Model.AvatarUrl()" style="width:55vh"/>
+	<p>@Model.Name</p>
+	<p>@Model.Surname</p>
+	<p>@Model.DateOfBirth.ToShortDateString()</p>
+	<p>@Model.PhoneNumber</p>
+</div>

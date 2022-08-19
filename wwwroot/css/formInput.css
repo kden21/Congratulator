@@ -1,0 +1,23 @@
+﻿.card-input {
+    background-color: #695e97;
+    margin: 5vh auto;
+    padding: 20px;
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+    font-size: x-large;
+    width: 60vh;
+    box-shadow: 0 1px 5px #5b4343;
+}
+
+.button-input {
+    border-radius: 10px;
+    color: #695e97;
+    background-color: white;
+    box-shadow: 0 1px 5px #5b4343;
+    border: initial;
+}
+    .button-input:hover {
+        background-color: #f3e4fd;
+        font-weight:600;
+    }
